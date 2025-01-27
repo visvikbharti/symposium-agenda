@@ -6,10 +6,10 @@
     <title>Innovation & Technology Transfer Symposium</title>
     <style>
         :root {
-            --primary-color: #007bff;
-            --secondary-color: #0056b3;
+            --primary-color: #4285f4;
+            --text-dark: #202124;
             --background-light: #f8f9fa;
-            --text-dark: #343a40;
+            --nav-height: 64px;
         }
 
         * {
@@ -19,7 +19,7 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
             background-color: var(--background-light);
@@ -27,16 +27,20 @@
 
         .navbar {
             background-color: white;
-            padding: 1rem;
-            position: sticky;
+            height: var(--nav-height);
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .nav-links {
             display: flex;
-            justify-content: center;
             gap: 2rem;
             list-style: none;
         }
@@ -46,69 +50,86 @@
             color: var(--text-dark);
             font-weight: 500;
             padding: 0.5rem 1rem;
-            transition: color 0.3s;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .hero {
+        .nav-links a:hover,
+        .nav-links a.active {
             background-color: var(--primary-color);
             color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-            margin-bottom: 2rem;
+        }
+
+        .page-section {
+            display: none;
+            padding-top: var(--nav-height);
+            min-height: 100vh;
+        }
+
+        .page-section.active {
+            display: block;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 2rem;
         }
 
-        .section {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), #185abc);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
 
         .section-title {
             color: var(--primary-color);
-            margin-bottom: 1.5rem;
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.5rem;
+            margin: 2rem 0;
+            font-weight: 600;
         }
 
-        .agenda-images {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            align-items: center;
+        .agenda-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
 
         .agenda-image {
-            max-width: 100%;
+            width: 100%;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 1rem 0;
         }
 
         .speakers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            padding: 2rem;
         }
 
         .speaker-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
 
         .speaker-card:hover {
@@ -118,37 +139,37 @@
         .speaker-image {
             width: 100%;
             height: auto;
-            max-height: 400px;
-            object-fit: contain;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2rem;
             background-color: var(--primary-color);
             color: white;
             text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
             margin: 1rem 0;
+            border: none;
+            cursor: pointer;
         }
 
         .cta-button:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .text-center {
-            text-align: center;
+            background-color: #185abc;
         }
 
         @media (max-width: 768px) {
             .nav-links {
-                flex-direction: column;
-                gap: 0.5rem;
+                gap: 1rem;
             }
 
             .speakers-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -156,46 +177,77 @@
 <body>
     <nav class="navbar">
         <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
+            <li><a href="#home" class="active">Home</a></li>
             <li><a href="#agenda">Agenda</a></li>
             <li><a href="#speakers">Speakers</a></li>
         </ul>
     </nav>
 
-    <section id="home" class="hero">
-        <h1>Innovation, Technology Transfer, and Entrepreneurship</h1>
-        <p>January 28-29, 2025 | CSIR-IGIB, Mathura Road, Delhi</p>
-        <p>Building Bridges Between Academia and Industry: A Researcher's Path to Innovation</p>
-    </section>
-
-    <div class="container">
-        <section id="agenda" class="section">
-            <h2 class="section-title">Symposium Agenda</h2>
-            <div class="agenda-images">
-                <img src="1.png" alt="Agenda Day 1" class="agenda-image">
-                <img src="2.png" alt="Agenda Day 1 Continued" class="agenda-image">
-                <img src="3.png" alt="Agenda Day 2" class="agenda-image">
+    <main>
+        <section id="home" class="page-section active">
+            <div class="hero">
+                <h1>Innovation, Technology Transfer, and Entrepreneurship</h1>
+                <p>January 28-29, 2025 | CSIR-IGIB, Mathura Road, Delhi</p>
+                <p>Building Bridges Between Academia and Industry: A Researcher's Path to Innovation</p>
             </div>
-            <div class="text-center">
-                <a href="agenda_final.pdf" class="cta-button" download>Download Complete Agenda (PDF)</a>
+            <div class="container">
+                <h2 style="text-align: center; margin: 3rem 0;">
+                    Don't miss this unique opportunity to engage with global experts in innovation and technology transfer!
+                </h2>
+                <div style="text-align: center;">
+                    <a href="agenda_final.pdf" class="cta-button" download>Download Complete Agenda (PDF)</a>
+                </div>
             </div>
         </section>
 
-        <section id="speakers" class="section">
+        <section id="agenda" class="page-section">
+            <div class="container">
+                <h2 class="section-title">Symposium Agenda</h2>
+                <div class="agenda-container">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Day 1 - January 28, 2025</h3>
+                    <img src="1.png" alt="Day 1 Morning Agenda" class="agenda-image">
+                    <img src="2.png" alt="Day 1 Afternoon Agenda" class="agenda-image">
+                </div>
+                <div class="agenda-container">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Day 2 - January 29, 2025</h3>
+                    <img src="3.png" alt="Day 2 Agenda" class="agenda-image">
+                </div>
+            </div>
+        </section>
+
+        <section id="speakers" class="page-section">
             <h2 class="section-title">Distinguished Speakers</h2>
             <div class="speakers-grid">
-                <img src="5.png" alt="Speaker Profiles 1" class="speaker-image">
-                <img src="6.png" alt="Speaker Profiles 2" class="speaker-image">
-                <img src="7.png" alt="Speaker Profiles 3" class="speaker-image">
-                <img src="8.png" alt="Speaker Profiles 4" class="speaker-image">
-                <img src="9.png" alt="Speaker Profiles 5" class="speaker-image">
+                <img src="5.png" alt="Dr. Anil Wali" class="speaker-image">
+                <img src="6.png" alt="Other Distinguished Speakers" class="speaker-image">
+                <img src="7.png" alt="More Distinguished Speakers" class="speaker-image">
+                <img src="8.png" alt="Additional Speakers" class="speaker-image">
+                <img src="9.png" alt="Final Speakers" class="speaker-image">
             </div>
         </section>
-    </div>
+    </main>
 
-    <footer class="section text-center" style="margin-top: 2rem;">
-        <p>Scan QR code to access the symposium agenda:</p>
-        <img src="QR_code_github_hosted_symposium_agenda.png" alt="QR Code" style="width: 150px; height: auto; margin: 1rem 0;">
-    </footer>
+    <script>
+        // Handle navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Update active link
+                document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show active section
+                const targetId = link.getAttribute('href').substring(1);
+                document.querySelectorAll('.page-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(targetId).classList.add('active');
+                
+                // Smooth scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
 </body>
 </html>
